@@ -47,16 +47,17 @@ public static void main(String[]args) throws UnknownHostException, IOException, 
 			 bw.write(jsonObject3 + "\n");
 			 bw.flush(); 
 			 break;
+		 }else {
+			 System.out.println("Para quien: ");
+			 String quien=sc.nextLine();
+			 JSONObject jsonObject = new JSONObject();
+			 jsonObject.put("action","mensaje");
+			 jsonObject.put("value",mensaje);
+			 jsonObject.put("to", quien);
+			 jsonObject.put("from",nick);
+		 	bw.write(jsonObject + "\n");
+		 	bw.flush();
 		 }
-		 System.out.println("Para quien: ");
-		 String quien=sc.nextLine();
-		 JSONObject jsonObject = new JSONObject();
-		 jsonObject.put("action","mensaje");
-		 jsonObject.put("value",mensaje);
-		 jsonObject.put("to", quien);
-		 jsonObject.put("from",nick);
-	 	bw.write(jsonObject + "\n");
-	 	bw.flush();
 		 }
 		 sc.close();
 }

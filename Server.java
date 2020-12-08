@@ -42,10 +42,10 @@ public class Server{
 	public static void broadcast(Socket cliente,JSONObject msg) throws IOException{
 		for(HiloLogeo ss: clientes){
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(ss.getS().getOutputStream()));
-			if(ss.getS()!=cliente) {
-				bw.write(msg.get("value") + "\n");
+			//if(ss.getS()!=cliente) {
+				bw.write(msg + "\n");
 				bw.flush();
-			}	
+			//}	
 		}
 		System.out.println(msg);
 	}
