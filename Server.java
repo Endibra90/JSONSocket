@@ -34,9 +34,9 @@ public class Server{
 		for(HiloLogeo c : clientes) {
 			if(c.getS() == s) {
 				clientes.remove(c);
-				System.out.println(json);
 			}
 		}
+		System.out.println(json);
 	}
 	public static void broadcast(Socket cliente,JSONObject msg) throws IOException{
 		for(HiloLogeo ss: clientes){

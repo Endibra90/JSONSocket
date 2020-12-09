@@ -40,13 +40,13 @@ public static void main(String[]args) throws UnknownHostException, IOException, 
 		 while(true) {
 		 System.out.println("Mensaje: ");
 		 String mensaje= sc.nextLine();
-		 if(mensaje.equalsIgnoreCase("logout")){
-			 System.out.println("Has sido desconectado.");
-			 break;
+		 String quien = "";
+		 if(!mensaje.equals("logout")){
+			 System.out.println("Para quien: ");
+			 quien=sc.nextLine();
 		 }
-		 System.out.println("Para quien: ");
-		 String quien=sc.nextLine();
-		 if(mensaje.equalsIgnoreCase("logout")) {
+		 else if(mensaje.equalsIgnoreCase("logout")) {
+			 System.out.println("Has sido desconectado.");
 			 JSONObject jsonObject3 = new JSONObject();
 			 jsonObject3.put("action","logout");
 			 jsonObject3.put("user", nick);
