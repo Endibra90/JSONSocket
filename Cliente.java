@@ -45,7 +45,7 @@ public static void main(String[]args) throws UnknownHostException, IOException, 
 			 System.out.println("Para quien: ");
 			 quien=sc.nextLine();
 		 }
-		 else if(mensaje.equalsIgnoreCase("logout")) {
+		 if(mensaje.equalsIgnoreCase("logout")) {
 			 System.out.println("Has sido desconectado.");
 			 JSONObject jsonObject3 = new JSONObject();
 			 jsonObject3.put("action","logout");
