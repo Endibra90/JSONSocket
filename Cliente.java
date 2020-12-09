@@ -24,11 +24,11 @@ public static void main(String[]args) throws UnknownHostException, IOException, 
 		 JSONObject jsonObject2 = new JSONObject();
 		 while(!logueado){
 			 System.out.println("Nick:");
-			 nick = sc.nextLine(); 
+			 nick = sc.nextLine();
 			 jsonObject2.put("user", nick);
 			 jsonObject2.put("action","login");
 			 if(!nick.equals(""))
-			 logueado=true;	 
+			 logueado=true;
 		 }
 		 if(logueado) {
 			 bw.write(jsonObject2 + "\n");
@@ -40,16 +40,21 @@ public static void main(String[]args) throws UnknownHostException, IOException, 
 		 while(true) {
 		 System.out.println("Mensaje: ");
 		 String mensaje= sc.nextLine();
+		 if(mensaje.equalsIgnoreCase("logout")){
+			 System.out.println("Has sido desconectado.");
+			 break;
+		 }
+		 System.out.println("Para quien: ");
+		 String quien=sc.nextLine();
 		 if(mensaje.equalsIgnoreCase("logout")) {
 			 JSONObject jsonObject3 = new JSONObject();
 			 jsonObject3.put("action","logout");
 			 jsonObject3.put("user", nick);
 			 bw.write(jsonObject3 + "\n");
-			 bw.flush(); 
+			 bw.flush();
 			 break;
-		 }else {
-			 System.out.println("Para quien: ");
-			 String quien=sc.nextLine();
+		 }
+		 else if (!mensaje.equalsIgnoreCase("logout") && quien.equalsIgnoreCase("todos")){
 			 JSONObject jsonObject = new JSONObject();
 			 jsonObject.put("action","mensaje");
 			 jsonObject.put("value",mensaje);
@@ -57,6 +62,15 @@ public static void main(String[]args) throws UnknownHostException, IOException, 
 			 jsonObject.put("from",nick);
 		 	bw.write(jsonObject + "\n");
 		 	bw.flush();
+		 }
+		 else{
+			 JSONObject jsonObject4 = new JSONObject();
+			 jsonObject4.put("action", "mensaje");
+			 jsonObject4.put("value", mensaje);
+			 jsonObject4.put("to", quien);
+			 jsonObject4.put("from",nick);
+			 bw.write(jsonObject4 + "\n");
+			 bw.flush();
 		 }
 		 }
 		 sc.close();

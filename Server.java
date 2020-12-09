@@ -19,7 +19,6 @@ public class Server{
 
 	public static String meterUser(Socket s) throws IOException, ParseException {
 		while(true) {
-			System.out.println("caveiralogin");
 			BufferedReader bf = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			String linea;
 			while((linea=bf.readLine())!=null) {
@@ -45,9 +44,20 @@ public class Server{
 			//if(ss.getS()!=cliente) {
 				bw.write(msg + "\n");
 				bw.flush();
-			//}	
+			//}
 		}
 		System.out.println(msg);
+	}
+	public static void directMsg(Socket cliente , JSONObject msg) throws IOException{
+		for(HiloLogeo ss: clientes){
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(ss.getS().getOutputStream()));
+			//System.out.println(ss.getNick() + "Parametro: " + nick);
+			if((ss.getNick().equalsIgnoreCase((String) msg.get("to")))){
+				bw.write(msg + "\n");
+				bw.flush();
+			}
+		}
+		System.out.print(msg);
 	}
 public static void main(String[]args) throws IOException, ParseException, ClassNotFoundException{
 		ServerSocket serverSocket = new ServerSocket(3001);

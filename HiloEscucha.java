@@ -22,7 +22,14 @@ import org.json.simple.parser.ParseException;
 public class HiloEscucha extends Thread {
      Socket s;
 	private BufferedReader bf;
-     public HiloEscucha(Socket s,String nick) throws IOException, ParseException, ClassNotFoundException{
+	private String nick;
+     public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	public HiloEscucha(Socket s,String nick) throws IOException, ParseException, ClassNotFoundException{
     	 this.bf=new BufferedReader(new InputStreamReader(s.getInputStream()));
      }
     @Override
@@ -30,7 +37,6 @@ public class HiloEscucha extends Thread {
     	String linea;
     	try {
 			while((linea=bf.readLine())!=null) {
-				System.out.print("caveiraescucha");
 				JSONObject jsonobject = new JSONObject();
 				JSONParser jsonParser = new JSONParser();
 				try {
@@ -40,14 +46,16 @@ public class HiloEscucha extends Thread {
 				}
 				if(jsonobject.get("action").equals("logout")) {
 					Server.eliminarUser(s, jsonobject);
-				}else {
+				}else if(jsonobject.get("to").equals("todos")){
 					Server.broadcast(s,jsonobject);
+				}else{
+					Server.directMsg(s,jsonobject);
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
+
     }
 
 }

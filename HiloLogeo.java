@@ -16,6 +16,12 @@ public class HiloLogeo extends Thread {
 	public void setS(Socket s) {
 		this.s = s;
 	}
+	public String getNick(){
+		return nick;
+	}
+	public void setNick(String nick){
+		this.nick=nick;
+	}
 	@Override
 	    public void run(){
 		 HiloEscucha hiloescucha = null;
